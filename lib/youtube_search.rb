@@ -59,7 +59,11 @@ module YoutubeSearch
 
     def xml_to_hash(element)
       Hash[element.children.map do |child|
-        [child.name, child.text]
+        if child.has_attributes?
+          [child.name, child.attributes]
+        else
+          [child.name, child.text]
+        end
       end]
     end
 
